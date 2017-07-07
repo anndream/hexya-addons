@@ -1,0 +1,16 @@
+<hexya>
+    <data>
+        <menuitem id="product_product_main_menu" name="Product"/>
+        <menuitem id="product_product_menu" name="Products" parent="product_product_main_menu"/>
+        <menuitem id="product_product_category_menu" name="Product Category" parent="product_product_menu"
+                  action="product_product_category_action_form"/>
+        <menuitem id="product_product_supplierinfo_menu" name="Product Supplier Info" parent="product_product_menu"
+                  action="product_product_supplierinfo_action_form"/>
+        <menuitem id="product_product_packaging_menu" name="Product Packaging" parent="product_product_menu"
+                  action="product_product_packaging_action_form"/>
+        <menuitem id="product_product_template_menu" name="Product Template" parent="product_product_menu"
+                  action="product_product_template_action_all"/>
+        <menuitem id="product_product_product_menu" name="Products" parent="product_product_menu"
+                  action="product_product_normal_action"/>
+    </data>
+</hexya>

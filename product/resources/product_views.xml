@@ -1,0 +1,52 @@
+<hexya>
+    <data>
+
+        <view id="product_product_search" model="ProductProduct">
+            <search>
+                <field name="Name"/>
+                <field name="Description"/>
+            </search>
+        </view>
+
+        <view id="product_product_tree" model="ProductProduct">
+            <tree>
+                <field name="Name"/>
+                <field name="Description"/>
+            </tree>
+        </view>
+
+        <view id="product_product_form" model="ProductProduct">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="Name"/>
+                        <field name="Description"/>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="Description"/>
+                        </page>
+                        <page string="About">
+                            This is an example of notebooks
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </view>
+
+        <action id="product_product_action" name="product" model="ProductProduct"
+                view_mode="tree,form" type="ir.actions.act_window">
+            <help>
+                <p class="oe_view_nocontent_create">Create the first product</p>
+            </help>
+        </action>
+
+        <menuitem id="product_main_menu" name="product"/>
+
+        <menuitem id="product_menu" name="product" parent="product_main_menu"/>
+
+        <menuitem id="product_product_menu" name="products" parent="product_menu"
+                  action="product_product_action"/>
+
+    </data>
+</hexya>
