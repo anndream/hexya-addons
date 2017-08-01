@@ -12,5 +12,30 @@
                   action="product_product_template_action_all"/>
         <menuitem id="product_product_product_menu" name="Products" parent="product_product_menu"
                   action="product_product_normal_action"/>
+
+        <menuitem id="product_attribute_menu" name="Attributes" parent="product_product_main_menu"/>
+        <menuitem id="product_product_attribute_value_menu" name="Attribute Value" parent="product_attribute_menu"
+                  action="product_product_attribute_value_action"/>
+        <menuitem id="product_product_attribute_menu" name="Attribute" parent="product_attribute_menu"
+                  action="product_product_attribute_action"/>
+        <menuitem id="product_product_variant_menu" name="Product Variant" parent="product_attribute_menu"
+                  action="product_product_variants_action"/>
+        <menuitem id="product_attribute_line_menu" name="Attribute Line" parent="product_attribute_menu"
+                  action="product_attribute_line_action"/>
+
+        <menuitem id="product_pricelist_menu" name="Pricelist" parent="product_product_main_menu"/>
+        <menuitem id="product_product_pricelist_menu" name="Pricelist" parent="product_pricelist_menu"
+                  action="product_product_pricelist_action_form"/>
+        <menuitem id="product_product_pricelist_item_menu" name="Pricelist Item" parent="product_pricelist_menu"
+                  action="product_product_pricelist_item_action_form"/>
+
+
+        <menuitem id="product_uom_menu" name="UoM" parent="product_product_main_menu"/>
+        <menuitem id="product_product_uom_menu" name="UoM" parent="product_uom_menu"
+                  action="product_product_uom_action_form"/>
+        <menuitem id="product_uom_category_menu" name="UoM Category" parent="product_uom_menu"
+                  action="product_product_uom_category_action_form"/>
+
+
     </data>
 </hexya>

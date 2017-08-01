@@ -1,0 +1,89 @@
+<hexya>
+    <data>
+
+                                                                                             <!--ProductAttributeValue-->
+        <view id="product_product_attribute_value_view_tree" model="ProductAttributeValue">
+                <tree string="Attributes" editable="top">
+                    <field name="Sequence" widget="handle"/>
+                    <field name="AttributeId"/>
+                    <field name="Name"/>
+                    <field name="PriceExtra"/>
+                </tree>
+        </view>
+
+        <action id="product_product_attribute_value_action" type="ir.actions.act_window" model="ProductAttributeValue"
+                name="Product Attribute Value" view_mode="tree" search_view_id="product_product_attribute_value_search_view"
+                view_id="product_product_attribute_value_view_tree"/>
+
+                                                                                            <!--ProductAttribute-->
+
+        <view id="product_product_attribute_tree_view" model="ProductAttribute">
+                <tree string="Variant Values" editable="top">
+                    <field name="Sequence" widget="handle"/>
+                    <field name="Name"/>
+                    <field name="CreateVariant" groups="base.group_no_one"/>
+                </tree>
+        </view>
+
+        <view id="product_product_attribute_view_form" model="ProductAttribute">
+                <form string="Product Attribute">
+                    <group>
+                        <group name="main_fields">
+                            <label for="name" string="Attribute Name"/>
+                            <field name="Name" nolabel="1"/>
+                        </group>
+                    </group>
+                    <group name="values_ids">
+                        <label for="ValueIds" string="Attribute Values"/>
+                        <field name="ValueIds" widget="one2many_list" nolabel="1">
+                            <tree string="Values" editable="bottom">
+                                <field name="Name"/>
+                            </tree>
+                            <form string="Values">
+                                <field name="Name"/>
+                            </form>
+                        </field>
+                        <field name="CreateVariant" groups="base.group_no_one"/>
+                    </group>
+                </form>
+        </view>
+
+        <action id="product_product_attribute_action" type="ir.actions.act_window" model="ProductAttribute"
+                name="Product Attribute" view_mode="tree,form" search_view_id="product_product_attribute_search_view"
+                view_id="product_product_attribute_view_tree"/>
+
+
+        <view id="product_product_variants_tree_view" model="ProductAttributeValue">
+                <tree string="Variant Values" editable="top">
+                    <field name="Sequence" widget="handle"/>
+                    <field name="AttributeId"/>
+                    <field name="Name"/>
+                </tree>
+        </view>
+
+        <action id="product_product_variants_action" type="ir.actions.act_window" model="ProductAttributeValue"
+                name="Product Variants" view_mode="tree" search_view_id="product_product_variants_search_view"
+                view_id="product_product_variants_view_tree"/>
+
+        <view id="product_product_attribute_line_form" model="ProductAttributeLine">
+                <form string="Product Attribute and Values">
+                    <group name="main_field">
+                        <label for="AttributeId" string="AttributeName"/>
+                        <field name="AttributeId" nolabel="1"/>
+                        <field name="ValueIds" widget="one2many_list">
+                            <tree string="Values">
+                                <field name="Name"/>
+                            </tree>
+                            <form string="Values">
+                                <field name="Name"/>
+                            </form>
+                        </field>
+                    </group>
+                </form>
+        </view>
+
+        <action id="product_attribute_line_action" type="ir.actions.act_window" model="ProductAttributeLine"
+                name="Attribute Line" view_mode="form" search_view_id="product_product_attribute_line_search_view"
+                view_id="product_attribute_line_form"/>
+    </data>
+</hexya>

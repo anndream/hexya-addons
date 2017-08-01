@@ -1,1 +1,7 @@
-package resources
+<hexya>
+    <view id_inherit="product_view_general_configuration" model="BaseConfigSettings">
+            <xpath expr="//group[@name='company_share_resources']" position="inside">
+                <field name="CompanyShareProduct" class="oe_inline"/>
+            </xpath>
+    </view>
+</hexya>

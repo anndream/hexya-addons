@@ -1,0 +1,154 @@
+<hexya>
+    <data>
+                                                                                <!--ProductPriceListItem-->
+
+        <view id="product_product_pricelist_item_tree_view" model="ProductPriceListItem">
+                <tree string="Pricelist Items">
+                    <field name="Sequence" widget="handle"/>
+                    <field colspan="4" name="Name"/>
+                    <field name="ProductId" groups="product.group_product_variant"/>
+                    <field name="ProductTmplId"/>
+                    <field name="CategId"/>
+                    <field name="MinQuantity"/>
+                    <field name="DateStart"/>
+                    <field name="DateEnd"/>
+                </tree>
+        </view>
+
+        <view id="product_product_pricelist_item_form_view" model="ProductPriceListItem">
+                <form string="Pricelist Items">
+                    <h1><field name="Name"/></h1>
+                    <group>
+                        <group>
+                            <field name="AppliedOn" widget="radio"/>
+                            <field name="CategId" attrs="{'invisible':[('applied_on', '!=', '2_product_category')], 'required':[('applied_on', '=', '2_product_category')]}"/>
+                            <field name="ProductTmplId" attrs="{'invisible':[('applied_on', '!=', '1_product')],'required':[('applied_on', '=', '1_product')]}" string="Product"/>
+                            <field name="ProductId" attrs="{'invisible':[('applied_on', '!=', '0_product_variant')],'required':[('applied_on', '=', '0_product_variant')]}" string="Product Variant"/>
+                        </group>
+                        <group>
+                            <field name="MinQuantity"/>
+                            <field name="DateStart"/>
+                            <field name="DateEnd"/>
+                        </group>
+                    </group>
+                    <separator string="Price Computation"/>
+                    <group>
+                        <group>
+                            <label for="ComputePrice" string="Compute Price"/>
+                            <div>
+                                <field name="ComputePrice" widget="radio"/>
+                                <field name="CurrencyId" invisible="1"/>
+                                <div attrs="{'invisible':[('compute_price', '!=', 'fixed')]}">
+                                    <field name="FixedPrice" nolabel= "1" widget='monetary' options="{'currency_field': 'currency_id'}"/></div>
+                                <div attrs="{'invisible':[('compute_price', '!=', 'percentage')]}">
+                                    <field name="PercentPrice" nolabel="1" class="oe_inline"/>%
+                                </div>
+                            </div>
+                        </group>
+                    </group>
+                    <div class="oe_grey" groups="product.group_uom">
+                        <p>The computed price is expressed in the default Unit of Measure of the product.</p>
+                    </div>
+                    <group col="6" attrs="{'invisible':[('compute_price', '!=', 'formula')]}">
+                        <field name="base" colspan="6"/>
+
+                        <label string="New Price ="/>
+                        <div>
+                            <span attrs="{'invisible':[('base', '!=', 'list_price')]}">Public Price  -  </span>
+                            <span attrs="{'invisible':[('base', '!=', 'standard_price')]}">Cost  -  </span>
+                            <span attrs="{'invisible':[('base', '!=', 'pricelist')]}">Other Pricelist  -  </span>
+                        </div>
+                        <label for="PriceDiscount"/>
+                        <div class="o_row">
+                            <field name="PriceDiscount"/>
+                            <span>%</span>
+                        </div>
+                        <label string=" + " for="PriceSurcharge"/>
+                        <field name="PriceSurcharge" nolabel="1"/>
+
+                        <field name="PriceRound" string="Rounding Method"/>
+                        <field name="PriceMinMargin" string="Min. Margin"/>
+                        <field name="PriceMaxMargin" string="Max. Margin"/>
+
+                        <field name="Base" attrs="{'invisible':[('base', '!=', 'pricelist')],'required': [('base','=', 'pricelist')], 'readonly': [('base','!=', 'pricelist')]}"/>
+                    </group>
+                </form>
+        </view>
+
+        <view  id="product_product_pricelist_view_search" model="ProductPriceListItem">
+            <search string="Products Price Search">
+                <field name="Name" string="Products Price"/>
+                <field name="CurrencyId" groups="base.group_multi_currency"/>
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+            </search>
+        </view>
+
+        <action id="product_product_pricelist_item_action_form" type="ir.actions.act_window" model="ProductPriceListItem"
+                name="Product Pricelist Item" view_mode="tree,form" search_view_id="product_product_pricelist_item_search_view"
+                view_id="product_product_pricelist_item_tree_view"/>
+
+
+                                                                                    <!--ProductPriceList-->
+
+
+
+
+        <view id="product_product_pricelist_view_tree" model="ProductPriceList">
+                <tree string="Products Price List">
+                    <field name="Sequence" widget="handle" />
+                    <field name="Name"/>
+                    <field name="CurrencyId" groups="base.group_multi_currency"/>
+                </tree>
+        </view>
+
+        <view id="product_product_pricelist_view" model="ProductPriceList">
+                <form string="Products Price List">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                       options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1><field name="Name" placeholder="e.g. USD Retailers"/></h1>
+                        </div>
+                        <group>
+                            <field name="CurrencyId" groups="base.group_multi_currency"/>
+                            <field name="CompanyId" groups="base.group_multi_company" options="{'no_create': True}"/>
+                            <field name="CountryGroupsIds"/>
+                        </group>
+                        <div groups="product.group_pricelist_item">
+                            <separator string="Pricelist Items"/>
+                            <field name="ItemIds" nolabel="1" context="{'default_base':'list_price'}">
+                                <tree string="Pricelist Items">
+                                    <field name="Name" string="Applicable On"/>
+                                    <field name="MinQuantity"/>
+                                    <field name="DateStart"/>
+                                    <field name="DateEnd"/>
+                                    <field name="Price" string="Price"/>
+                                    <field name="Base" invisible="1"/>
+                                    <field name="Sequence" invisible="1"/>
+                                    <field name="PriceDiscount" invisible="1"/>
+                                    <field name="AppliedOn" invisible="1"/>
+                                    <field name="ComputePrice" invisible="1"/>
+                                </tree>
+                            </field>
+                        </div>
+                    </sheet>
+                </form>
+        </view>
+
+        <view id="inherits_website_sale_country_group_form" model="CountryGroup" >
+                <group name="country_group" position="after">
+                    <field name="PricelistIds"/>
+                </group>
+        </view>
+
+        <action id="product_product_pricelist_action_form" type="ir.actions.act_window" model="ProductPriceList"
+                name="Product Pricelist" view_mode="tree,form" search_view_id="product_product_pricelist_view_search"
+                view_id="product_product_pricelist_view_tree"/>
+
+    </data>
+</hexya>

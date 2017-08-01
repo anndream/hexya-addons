@@ -1,0 +1,67 @@
+<hexya>
+    <data>
+                                                                                            <!--ProductUoM-->
+        <view id="product_product_uom_tree_view" model="ProductUoM">
+                <tree string="Units of Measure">
+                    <field name="Name"/>
+                    <field name="CategoryId"/>
+                    <field name="uom_type"/>
+                </tree>
+        </view>
+
+        <view id="product_product_uom_form_view" model="ProductUoM">
+                <form string="Units of Measure">
+                    <group>
+                        <group>
+                            <field name="Name"/>
+                            <field name="CategoryId"/>
+                            <field name="UoMType"/>
+                            <field name="Factor"
+                                   digits="[42,5]"
+                                   attrs="{'invisible':[('uom_type','!=','smaller')],
+                                        'readonly':[('uom_type','=','bigger')]}"/>
+                            <field name="FactorInv"
+                                   digits="[42,5]"
+                                   attrs="{'invisible':[('uom_type','!=','bigger')],
+                                        'readonly':[('uom_type','!=','bigger')]}"/>
+                            <p attrs="{'invisible':[('uom_type','!=','smaller')]}" class="oe_grey" colspan="2">
+                                e.g: 1 * (reference unit) = ratio * (this unit)
+                            </p>
+                            <p attrs="{'invisible':[('uom_type','!=','bigger')]}" class="oe_grey" colspan="2">
+                                e.g: 1 * (this unit) = ratio * (reference unit)
+                            </p>
+                        </group>
+                        <group>
+                            <field name="Active"/>
+                            <field name="Rounding" digits="[42, 5]"/>
+                        </group>
+                    </group>
+                </form>
+        </view>
+
+
+        <action id="product_product_uom_action_form" type="ir.actions.act_window" model="ProductUoM"
+                name="Product Uom" view_mode="tree,form" search_view_id="product_product_uom_item_search_view"
+                view_id="product_product_uom_tree_view"/>
+
+                                                                                <!--ProductUoMCategory-->
+
+        <view id="product_product_uom_categ_tree_view" model="ProductUoMCategory">
+            <tree>
+                <field name="Name"/>
+            </tree>
+        </view>
+
+        <view id="product_product_uom_categ_form_view" model="ProductUoMCategory">
+                <form string="Units of Measure categories">
+                    <group>
+                        <field name="Name"/>
+                    </group>
+                </form>
+        </view>
+
+        <action id="product_product_uom_category_action_form" type="ir.actions.act_window" model="ProductUoMCategory"
+                name="Product Uom Category" view_mode="tree,form" search_view_id="product_product_uom_category_search_view"
+                view_id="product_product_uom_category_tree_view"/>
+    </data>
+</hexya>

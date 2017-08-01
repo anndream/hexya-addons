@@ -4,7 +4,7 @@
         <view id="product_wiz_product_price_list" model="WizProductPriceList">
                 <form string="Price List">
                     <group string="Calculate Product Price per Unit Based on Pricelist Version.">
-                        <field name="price_list" widget="selection"/>
+                        <field name="PriceList" widget="selection"/>
                         <field name="Qty1"/>
                         <field name="Qty2"/>
                         <field name="Qty3"/>
